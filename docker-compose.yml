@@ -1,0 +1,23 @@
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - celery
+    
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A async_scraper worker -l info
+    depends_on:
+      - redis
+
+  redis:
+    build:
+      context: .
+      dockerfile: redis.Dockerfile

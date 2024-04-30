@@ -3,7 +3,7 @@ import os
 from celery import Celery
 
 # Set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ai_async_inferer.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'async_scraper.settings')
 
 app = Celery('async_scraper')
 

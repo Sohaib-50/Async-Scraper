@@ -1,4 +1,5 @@
 services:
+
   django:
     build:
       context: .
@@ -13,6 +14,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - using_docker=true
     command: celery -A async_scraper worker -l info
     depends_on:
       - redis

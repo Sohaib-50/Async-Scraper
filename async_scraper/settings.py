@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -126,9 +127,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Celery settings
-# CELERY_BROKER_URL = "redis://localhost:6379"
-# CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_WORKER_CONCURRENCY = 4
+CELERY_RESULT_EXPIRES = 30  # seconds
+if os.environ.get("using_docker"):
+    CELERY_BROKER_URL = "redis://redis:6379"
+    CELERY_RESULT_BACKEND = "redis://redis:6379"
+else:
+    CELERY_BROKER_URL = "redis://localhost:6379"
+    CELERY_RESULT_BACKEND = "redis://localhost:6379"
 
-# Celery settings
-CELERY_BROKER_URL = "redis://redis:6379"
-CELERY_RESULT_BACKEND = "redis://redis:6379"

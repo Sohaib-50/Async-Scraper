@@ -2,10 +2,15 @@ from celery import shared_task
 import requests 
 from bs4 import BeautifulSoup 
 import json
+import time
 
 
 @shared_task
 def scrape_task(url, limit=20):
+    
+    time.sleep(30)
+    return {"foo": "bar"}
+
     
     count_processed = 0
     urls_to_process = {url}
